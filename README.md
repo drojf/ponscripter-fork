@@ -1,6 +1,14 @@
 # Ponscripter-fork (steam)
 
-![Travis-CI Build Status](https://travis-ci.org/sekaiproject/ponscripter-fork.svg)
+![Travis-CI Build Status](https://travis-ci.org/07th-mod/ponscripter-fork.svg)
+
+## Downloads
+You can download the latest builds from the 07th-mod server:
+- [Mac](https://07th-mod.com/higurashi_dlls/umineko-osx-steam.zip)
+- [Linux Steam](https://07th-mod.com/higurashi_dlls/umineko-linux-steam.zip)
+- [Linux Non-Steam](https://07th-mod.com/higurashi_dlls/umineko-linux.zip)
+
+Note: All versions of Umineko for Mac ship built with Steam support, even if sold elsewhere (e.g. on GOG).  This is not the case on Linux.
 
 ## Introduction
 
