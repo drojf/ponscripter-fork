@@ -48,7 +48,7 @@ SCRIPTER_H = PonscripterLabel.h PonscripterMessage.h $(PARSER_H) DirtyRect.h
 
 TARGET ?= ponscr$(EXESUFFIX)
 $(TARGET): $(PONSCR_OBJS)
-	$(CXX) -o $@ $(PONSCR_OBJS) $(LIBS)
+	$(CXX) -o $@ $(PONSCR_OBJS) $(LIBS) $(LDFLAGS)
 
 pclean:
 	-$(RM) *$(OBJSUFFIX) $(CLEANUP) $(RCCLEAN)

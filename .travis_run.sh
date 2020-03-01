@@ -21,11 +21,9 @@ elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
 		run.sh ./configure --with-external-sdl-mixer $STEAM
 		run.sh make
 	else
-		./configure --with-internal-libs
-		cd src/extlib/src/SDL2_image-2.0.0
-		bash fix-timestamps.sh
-		cd ../../../..
-		make
+		mkdir src/extlib/include src/extlib/lib
+		./configure
+		LDFLAGS="-Wl,-rpath,\\\$\$ORIGIN/lib64:." make
 	fi
 else
 	echo -n
