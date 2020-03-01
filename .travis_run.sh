@@ -11,6 +11,10 @@ elif [ -z "$STEAMLESS" ] && [ -n "$SSH_KEY" ]; then
 	fi
 fi
 
+cd src/extlib/src/SDL2_image-2.0.0
+. fix-timestamps.sh
+cd ../../../..
+
 if [ "$TRAVIS_OS_NAME" == "osx" ]; then
 	./configure --unsupported-compiler --with-internal-libs $STEAM
 	make
@@ -26,9 +30,6 @@ elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
 		# On the other hand, GOG copy is missing libpng12 so on systems with a newer libpng the game doesn't work
 		# Fix that by using internal sdlimage
 		./configure --with-internal-sdl-image
-		cd src/extlib/src/SDL2_image-2.0.0
-		bash fix-timestamps.sh
-		cd ../../../..
 		LDFLAGS="-Wl,-rpath,XORIGIN/lib64:." make
 	fi
 	chrpath -r "\$ORIGIN/lib64:." src/ponscr
