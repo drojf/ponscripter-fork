@@ -32,4 +32,8 @@ else
 	# TODO: Windows build
 fi
 
+cd src
+zip -9 ../ponscr.zip ponscr*
+cd ..
+
 echo -n "$TRAVIS_OS_NAME$STEAM" > buildinfo.txt
