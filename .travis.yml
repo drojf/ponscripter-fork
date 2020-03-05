@@ -2,13 +2,14 @@ language: cpp
 os:
   - linux
   - osx
+  - windows
 dist: trusty
 osx_image: xcode9.4
 env: 
   - STEAMLESS=YES
   - ""
 before_install:
-  - bash .travis_before_install.sh
+  - source .travis_before_install.sh
 script:
   - bash .travis_run.sh
 deploy:
@@ -22,3 +23,8 @@ deploy:
     script: scp -o StrictHostKeyChecking=no -i key ponscr.zip ${UPLOAD_SERVER}/ciconia-`cat buildinfo.txt`.zip 2>/dev/null
     on:
       branch: wh-mod
+before_cache:
+  - if [ "$TRAVIS_OS_NAME" == "windows" ]; then $msys2 pacman --sync --clean --noconfirm; fi
+cache:
+  directories:
+    - /C/tools/msys64

@@ -1,18 +1,12 @@
-if [ -n "$STEAMLESS" ] && [ -z "$SSH_KEY" ]; then
-	echo "Run with steamless but no SSH key, this would be a repeat of steamless with an SSH key, stopping."
+set -e
+
+if [ -z "$STEAMLESS" ] && [ -z "$SSH_KEY" ]; then
+	echo "Can't get steam API without SSH key, skipping"
 	exit 0
-elif [ -z "$STEAMLESS" ] && [ -n "$SSH_KEY" ]; then
-	STEAM="-steam"
-	if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-		export STEAM_RUNTIME_HOST_ARCH=$(dpkg --print-architecture)
-		export STEAM_RUNTIME_ROOT="$(pwd)/steam/runtime/amd64"
-		export STEAM_RUNTIME_TARGET_ARCH=amd64
-		export PATH="$(pwd)/steam/bin:$PATH"
-	fi
 fi
 
 cd src/extlib/src/SDL2_image-2.0.0
-. fix-timestamps.sh
+bash fix-timestamps.sh
 cd ../../../..
 
 if [ "$TRAVIS_OS_NAME" == "osx" ]; then
@@ -34,12 +28,17 @@ elif [ "$TRAVIS_OS_NAME" == "linux" ]; then
 	fi
 	chrpath -r "\$ORIGIN/lib64:." src/ponscr
 else
-	echo -n
-	# TODO: Windows build
+	# Windows build
+	$mingw32 ./configure $STEAM
+	$mingw32 make
 fi
 
 cd src
-zip -9 ../ponscr.zip ponscr*
+if [ "$TRAVIS_OS_NAME" == "windows" ]; then
+	zip -9 ../ponscr.zip ponscr.exe
+else
+	zip -9 ../ponscr.zip ponscr
+fi
 cd ..
 
 echo -n "$TRAVIS_OS_NAME$STEAM" > buildinfo.txt

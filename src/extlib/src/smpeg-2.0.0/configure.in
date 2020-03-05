@@ -205,7 +205,7 @@ if test x$enable_assertions != xyes; then
 fi
 
 dnl Activate compiler warnings
-CFLAGS="$CFLAGS -Wall"
+CFLAGS="$CFLAGS -Wall -Wno-narrowing"
 
 dnl Add the source include directories
 CFLAGS="$CFLAGS -I.. -DNOCONTROLS"
